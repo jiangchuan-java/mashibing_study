@@ -10,11 +10,13 @@ package system;
  */
 public class Volatile_In_Two_CacheLine {
 
+    //(缓存行对齐)，用于将两个操作的变量放入不同的cacheLine中
+    private static long p2,p3,p4,p5,p6,p7,p8; //cacheLine padding
+
     //在class中，这两个变量的内存地址是连续的,且小于64个字节，所以在第一个cacheLine中
     private static volatile long p1;
 
-    //cacheLine padding (缓存行对齐)，用于将两个操作的变量放入不同的cacheLine中
-    private static volatile long p2,p3,p4,p5,p6,p7,p8;
+    private static long p10,p11,p12,p13,p14,p15,p16;  //cacheLine padding
 
     //在class中，这两个变量的内存地址是连续的,中间有多个变量超过64个字节，所以在第二个cacheLine中
     private static volatile long p9;
