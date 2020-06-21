@@ -11,38 +11,36 @@ import sun.misc.Contended;
  */
 public class Volatile_In_One_CacheLine {
 
-    //在class中，这两个变量的内存地址是连续的,且小于64个字节，所以在一个cacheLine中
-    /* @Contended 据说jdk1.8加这个注解可以优化，但实际也没生效*/
-    private static volatile long p1;
+    //这两个变量的内存地址是连续的,且小于64个字节，所以在一个cacheLine中
+    @Contended //jdk1.8加这个注解可以优化，添加-XX:-RestrictContended 生效
+    private volatile long p1;
 
-    //在class中，这两个变量的内存地址是连续的,且小于64个字节，所以在一个cacheLine中
-    /* @Contended 据说jdk1.8加这个注解可以优化，但实际也没生效*/
-    private static volatile long p2;
+    //这两个变量的内存地址是连续的,且小于64个字节，所以在一个cacheLine中
+    @Contended //jdk1.8加这个注解可以优化，添加-XX:-RestrictContended 生效
+    private volatile long p2;
 
-    static class T1 extends Thread{
-        @Override
-        public void run(){
-            for(int i=0;i<1000_10000l;i++){
-                p1 = i;
-                //p2
-            }
-        }
-    }
-
-    static class T2 extends Thread{
-        @Override
-        public void run(){
-            for(int i=0;i<1000_10000l;i++){
-            p2 = i;
-            //p1
-        }
-    }
-    }
 
     public static void main(String[] args) throws Exception{
+        Volatile_In_One_CacheLine object = new Volatile_In_One_CacheLine();
         long begin = System.currentTimeMillis();
-        T1 t1 = new T1();
-        T2 t2 = new T2();
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0;i<1000_10000l;i++){
+                    object.p1 = i;
+                    //p2
+                }
+            }
+        });
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0;i<1000_10000l;i++){
+                    object.p2 = i;
+                    //p2
+                }
+            }
+        });
         t1.start();
         t2.start();
         t1.join();

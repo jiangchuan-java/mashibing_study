@@ -11,38 +11,38 @@ package system;
 public class Volatile_In_Two_CacheLine {
 
     //(缓存行对齐)，用于将两个操作的变量放入不同的cacheLine中
-    private static long p2,p3,p4,p5,p6,p7,p8; //cacheLine padding
+    private long p2,p3,p4,p5,p6,p7,p8; //cacheLine padding
 
-    //在class中，这两个变量的内存地址是连续的,且小于64个字节，所以在第一个cacheLine中
-    private static volatile long p1;
+    //这两个变量的内存地址是连续的,且小于64个字节，所以在第一个cacheLine中
+    private volatile long p1;
 
-    private static long p10,p11,p12,p13,p14,p15,p16;  //cacheLine padding
+    private long p10,p11,p12,p13,p14,p15,p16;  //cacheLine padding
 
-    //在class中，这两个变量的内存地址是连续的,中间有多个变量超过64个字节，所以在第二个cacheLine中
+    //这两个变量的内存地址是连续的,中间有多个变量超过64个字节，所以在第二个cacheLine中
     private static volatile long p9;
 
-    static class T1 extends Thread{
-        @Override
-        public void run(){
-            for(int i=0;i<1000_10000l;i++){
-                p1 = i;
-            }
-        }
-    }
-
-    static class T2 extends Thread{
-        @Override
-        public void run(){
-            for(int i=0;i<1000_10000l;i++){
-                p9 = i;
-            }
-        }
-    }
 
     public static void main(String[] args) throws Exception{
+        Volatile_In_Two_CacheLine object = new Volatile_In_Two_CacheLine();
         long begin = System.currentTimeMillis();
-        T1 t1 = new T1();
-        T2 t2 = new T2();
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0;i<1000_10000l;i++){
+                    object.p1 = i;
+                    //p2
+                }
+            }
+        });
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for(int i=0;i<1000_10000l;i++){
+                    object.p9 = i;
+                    //p2
+                }
+            }
+        });
         t1.start();
         t2.start();
         t1.join();
