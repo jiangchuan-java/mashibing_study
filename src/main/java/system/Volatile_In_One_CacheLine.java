@@ -24,6 +24,7 @@ public class Volatile_In_One_CacheLine {
         public void run(){
             for(int i=0;i<1000_10000l;i++){
                 p1 = i;
+                //p2
             }
         }
     }
@@ -32,9 +33,10 @@ public class Volatile_In_One_CacheLine {
         @Override
         public void run(){
             for(int i=0;i<1000_10000l;i++){
-                p2 = i;
-            }
+            p2 = i;
+            //p1
         }
+    }
     }
 
     public static void main(String[] args) throws Exception{
