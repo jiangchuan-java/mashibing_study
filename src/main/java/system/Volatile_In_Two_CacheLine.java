@@ -10,14 +10,20 @@ package system;
  */
 public class Volatile_In_Two_CacheLine {
 
-    //一共128个字节，在两个array[0]在前64中，array[8]在后64中，所以在两个cacheLine中
-    private static volatile long[] array = new long[16];
+    //在class中，这两个变量的内存地址是连续的,且小于64个字节，所以在第一个cacheLine中
+    private static volatile long p1;
+
+    //cacheLine padding (缓存行补齐)，用于将两个操作的变量放入不同的cacheLine中
+    private static volatile long p2,p3,p4,p5,p6,p7,p8;
+
+    //在class中，这两个变量的内存地址是连续的,中间有多个变量超过64个字节，所以在第二个cacheLine中
+    private static volatile long p9;
 
     static class T1 extends Thread{
         @Override
         public void run(){
-            for(int i=0;i<10000_10000l;i++){
-                array[0] = i;
+            for(int i=0;i<1000_10000l;i++){
+                p1 = i;
             }
         }
     }
@@ -25,8 +31,8 @@ public class Volatile_In_Two_CacheLine {
     static class T2 extends Thread{
         @Override
         public void run(){
-            for(int i=0;i<10000_10000l;i++){
-                array[8] = i;
+            for(int i=0;i<1000_10000l;i++){
+                p9 = i;
             }
         }
     }

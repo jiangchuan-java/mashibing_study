@@ -1,5 +1,7 @@
 package system;
 
+import sun.misc.Contended;
+
 /**
  * Created by fengtingting on 2020/6/21.
  *
@@ -9,14 +11,19 @@ package system;
  */
 public class Volatile_In_One_CacheLine {
 
-    //一共16个字节，在同一个cacheLine中
-    private static volatile long[] array = new long[2];//一共16个字节，在同一个cacheLine中
+    //在class中，这两个变量的内存地址是连续的,且小于64个字节，所以在一个cacheLine中
+    /* @Contended 据说jdk1.8加这个注解可以优化，但实际也没生效*/
+    private static volatile long p1;
+
+    //在class中，这两个变量的内存地址是连续的,且小于64个字节，所以在一个cacheLine中
+    /* @Contended 据说jdk1.8加这个注解可以优化，但实际也没生效*/
+    private static volatile long p2;
 
     static class T1 extends Thread{
         @Override
         public void run(){
-            for(int i=0;i<10000_10000l;i++){
-                array[0] = i;
+            for(int i=0;i<1000_10000l;i++){
+                p1 = i;
             }
         }
     }
@@ -24,8 +31,8 @@ public class Volatile_In_One_CacheLine {
     static class T2 extends Thread{
         @Override
         public void run(){
-            for(int i=0;i<10000_10000l;i++){
-                array[1] = i;
+            for(int i=0;i<1000_10000l;i++){
+                p2 = i;
             }
         }
     }
