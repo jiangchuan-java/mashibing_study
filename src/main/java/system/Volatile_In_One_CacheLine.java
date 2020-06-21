@@ -2,13 +2,14 @@ package system;
 
 /**
  * Created by fengtingting on 2020/6/21.
- * 测试缓存volatile的底层实现（MESIS）与操作系统的cacheLine的关系
+ *
+ * (伪共享)，明明volatile操作的是两个不相干的数据，但因为两个数据在同一个cacheLine中，导致两个线程需要互相通知进行一致
+ * 测试缓存volatile的底层实现（MESI）与操作系统的cacheLine的关系
  * cacheLine 一般是 64个字节
- * 测试1：两个cpu读取同一个cacheLine，但修改的是里面的不同数据，则MESI介入，两个cpu之间要进行通信，进行缓存一致性
- * 测试2：两个cpu读取两个cacheLine，分别修改自己cacheLine中的数据，理论上MESI不会介入，两个cpu各自修改
  */
 public class Volatile_In_One_CacheLine {
 
+    //一共16个字节，在同一个cacheLine中
     private static volatile long[] array = new long[2];//一共16个字节，在同一个cacheLine中
 
     static class T1 extends Thread{
