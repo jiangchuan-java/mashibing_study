@@ -30,6 +30,9 @@ public class PageCache_01 {
         File file = new File("/home/jiangchuan/workspace/mashibing_study/src/main/java/io/b.txt");
         FileInputStream fileInputStream = new FileInputStream(file);
 
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(2048);
+        byteBuffer.put("hello".getBytes());
+
         System.in.read();
 
         RandomAccessFile randomAccessFile = new RandomAccessFile("/home/jiangchuan/workspace/mashibing_study/src/main/java/io/a.txt", "rw");
