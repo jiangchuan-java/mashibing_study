@@ -1,6 +1,10 @@
 package thread_study;
 
+import sun.misc.Contended;
+import sun.misc.Unsafe;
+
 import java.io.File;
+import java.lang.reflect.Field;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -15,8 +19,31 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Volatile_Memory_Can_See2 {
 
     static volatile int a = 0;
+    @Contended
     static boolean running = true;
-    static List<Integer> list = new LinkedList<>();
+    @Contended
+    private static final Unsafe unsafe = getUnsafe();
+    @Contended
+    private static final long valueOffset;
+
+    static {
+        try {
+            valueOffset = unsafe.objectFieldOffset
+                    (Volatile_Memory_Can_See1.class.getDeclaredField("state"));
+        } catch (Exception ex) { throw new Error(ex); }
+    }
+
+    private static Unsafe getUnsafe() {
+        Field singleoneInstanceField = null;
+        try {
+            singleoneInstanceField = Unsafe.class.getDeclaredField("theUnsafe");
+            singleoneInstanceField.setAccessible(true);
+            return (Unsafe) singleoneInstanceField.get(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public static void main(String[] args) throws Exception {
         Thread t1 = new Thread(new Runnable() {
@@ -39,7 +66,7 @@ public class Volatile_Memory_Can_See2 {
                 try {
                     System.out.println(Thread.currentThread().getName()+" 开始运行");
                     while (running) {
-                        list.add(1);
+                        unsafe.compareAndSwapInt(this,valueOffset,0,1);//执行cas操作，触发lock前缀，验证Lock是否有内存屏障
                         //Socket socket = new Socket(); -> 立即刷新
                         //File file = new File("");  -> 立即刷新
                     }
