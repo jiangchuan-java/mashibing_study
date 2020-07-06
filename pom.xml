@@ -8,6 +8,15 @@
     <artifactId>mashibing_study</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+            <version>0.10</version>
+        </dependency>
+
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

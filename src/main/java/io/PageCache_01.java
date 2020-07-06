@@ -1,14 +1,7 @@
 package io;
-
-import sun.nio.ch.DirectBuffer;
-
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.RandomAccessFile;
-import java.lang.management.ManagementFactory;
+import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
 
 /**
  *
@@ -21,33 +14,32 @@ public class PageCache_01 {
 
     public static void main(String[] args) throws Exception{
 
-        String name = ManagementFactory.getRuntimeMXBean().getName();
-        System.out.println(name);
-
-        String pid = name.split("@")[0];
-        System.out.println("Pid is:"+ pid);
-
-        File file = new File("/home/jiangchuan/workspace/mashibing_study/src/main/java/io/b.txt");
-        FileInputStream fileInputStream = new FileInputStream(file);
-
-        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(2048);
-        byteBuffer.put("hello".getBytes());
-
-        System.in.read();
-
-        RandomAccessFile randomAccessFile = new RandomAccessFile("/home/jiangchuan/workspace/mashibing_study/src/main/java/io/a.txt", "rw");
-        FileChannel fileChannel = randomAccessFile.getChannel();
-
-        MappedByteBuffer mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, 0,5120);
-
-        System.in.read();
-
-
-        mappedByteBuffer.put("456789".getBytes());
-
-        System.in.read();
-
-
+        //堆内存数组分配,无任何系统调用，虚拟内存分配后，对应物理内存的使用也在增长，满足映射关系
+        for(int i=0;i<10000;i++) {
+            ByteBuffer byteBuffer = ByteBuffer.allocate(4096);
+            byteBuffer.put("123".getBytes());
+            System.out.println("build onHeap array");
+        }
+        //对外内存数组分配,有系统调用,设置某些虚拟内存可读写,虚拟内存分配后，对应物理内存的使用也在增长，满足映射关系
+        for(int i=0;i<10000;i++) {
+            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
+            byteBuffer.put("123".getBytes());
+            /*
+            * mprotect(0x7f5dc8140000, 4096, PROT_READ|PROT_WRITE) = 0 系统调用
+            * */
+            System.out.println("build offHeap array");
+        }
+        //内存分配后需要写入磁盘,虚拟内存分配后，对应物理内存的使用也在增长，满足映射关系
+        FileOutputStream outputStream = new FileOutputStream(new File("/home/jiangchuan/workspace/mashibing_study/src/main/java/io/xxoo.txt"));
+        for(int i=0;i<10000;i++) {
+            byte[] bytes = "123".getBytes();
+            outputStream.write(bytes);
+            /*
+             * open("xxoo.txt", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 14 系统调用
+             * write(14, "123", 3) 系统调用
+             * */
+            System.out.println("build array for disk");
+        }
 
     }
 }
