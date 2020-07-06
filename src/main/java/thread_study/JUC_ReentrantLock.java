@@ -20,8 +20,8 @@ public class JUC_ReentrantLock extends Thread{
                 condition.signal();
                 TimeUnit.SECONDS.sleep(1);
                 System.out.println(Thread.currentThread().getName()+"__获取锁");
-                //reentrantLock.unlock();
-                condition.await(); //效果等同于释放锁
+                reentrantLock.unlock();
+                //condition.await(); //效果等同于释放锁
             }
         }catch (Exception e){
 
