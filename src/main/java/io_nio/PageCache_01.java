@@ -1,4 +1,4 @@
-package io;
+package io_nio;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
@@ -30,7 +30,7 @@ public class PageCache_01 {
             System.out.println("build offHeap array");
         }
         //内存分配后需要写入磁盘,虚拟内存分配后，对应物理内存的使用也在增长，满足映射关系
-        FileOutputStream outputStream = new FileOutputStream(new File("/home/jiangchuan/workspace/mashibing_study/src/main/java/io/xxoo.txt"));
+        FileOutputStream outputStream = new FileOutputStream(new File("/home/jiangchuan/workspace/mashibing_study/src/main/java/io_nio/xxoo.txt"));
         for(int i=0;i<10000;i++) {
             byte[] bytes = "123".getBytes();
             outputStream.write(bytes);
