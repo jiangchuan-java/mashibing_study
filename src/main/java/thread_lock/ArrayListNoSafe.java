@@ -1,4 +1,4 @@
-package thread_study;
+package thread_lock;
 
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;

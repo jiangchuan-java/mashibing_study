@@ -1,4 +1,4 @@
-package thread_study;
+package refence;
 
 import java.lang.ref.SoftReference;
 

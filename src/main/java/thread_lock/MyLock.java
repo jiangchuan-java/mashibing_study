@@ -1,6 +1,5 @@
-package thread_study;
+package thread_lock;
 
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
 /**

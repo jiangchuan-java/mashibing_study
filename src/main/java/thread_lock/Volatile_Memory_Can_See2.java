@@ -1,17 +1,10 @@
-package thread_study;
+package thread_lock;
 
 import sun.misc.Contended;
 import sun.misc.Unsafe;
 
-import java.io.File;
 import java.lang.reflect.Field;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by fengtingting on 2020/6/30.
