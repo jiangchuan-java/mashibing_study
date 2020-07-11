@@ -6,6 +6,7 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
+import java.util.Set;
 
 
 /**
@@ -14,6 +15,7 @@ import java.util.Iterator;
  */
 public class EasyNettyServer {
 
+
     public static void main(String[] args) throws Exception {
         Selector acceptSelector = Selector.open();
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
@@ -21,16 +23,23 @@ public class EasyNettyServer {
         serverSocketChannel.bind(new InetSocketAddress("127.0.0.1", 9090));
         serverSocketChannel.register(acceptSelector, SelectionKey.OP_ACCEPT);
 
+        ReadWriteThread readWriteThread = new ReadWriteThread();
+
+        System.out.println("server start");
+
+
         while (true) {
             int readyNum = acceptSelector.select(100);
             if (readyNum > 0) {
-                Iterator<SelectionKey> iterator = acceptSelector.keys().iterator();
+                Set<SelectionKey> keySet = acceptSelector.selectedKeys();
+                Iterator<SelectionKey> iterator = keySet.iterator();
                 while (iterator.hasNext()){
                     SelectionKey readyKey = iterator.next();
                     ServerSocketChannel serverSocket = (ServerSocketChannel) readyKey.channel();
                     SocketChannel socketChannel = serverSocket.accept();
+                    System.out.println("accept from "+socketChannel.getRemoteAddress());
                     socketChannel.configureBlocking(false);
-
+                    readWriteThread.addNewSocket(socketChannel);
                     iterator.remove();
                 }
             }
