@@ -15,6 +15,13 @@ public class MyThreadPool {
                 30, TimeUnit.MINUTES,
                 new LinkedBlockingDeque<>(Integer.MAX_VALUE));
 
+        pool.execute(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+
 
         /*无线扩容*/
         ExecutorService cachePool = Executors.newCachedThreadPool();
