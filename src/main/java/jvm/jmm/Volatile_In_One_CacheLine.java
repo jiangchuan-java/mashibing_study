@@ -1,4 +1,4 @@
-package system;
+package jvm.jmm;
 
 import sun.misc.Contended;
 

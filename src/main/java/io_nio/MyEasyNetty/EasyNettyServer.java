@@ -15,6 +15,8 @@ import java.util.Set;
  */
 public class EasyNettyServer {
 
+    private static ReadWriteThread readWriteThread = new ReadWriteThread();
+
 
     public static void main(String[] args) throws Exception {
         Selector acceptSelector = Selector.open();
@@ -23,7 +25,6 @@ public class EasyNettyServer {
         serverSocketChannel.bind(new InetSocketAddress("127.0.0.1", 9090));
         serverSocketChannel.register(acceptSelector, SelectionKey.OP_ACCEPT);
 
-        ReadWriteThread readWriteThread = new ReadWriteThread();
 
         System.out.println("server start");
 

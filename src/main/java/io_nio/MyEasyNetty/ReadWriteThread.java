@@ -1,5 +1,6 @@
 package io_nio.MyEasyNetty;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -16,9 +17,13 @@ public class ReadWriteThread extends Thread{
     private LinkedList<SocketChannel> socketList = new LinkedList<>();
     /*专门处理读写的selector，线程独有*/
     private Selector readWriteSelector;
-    public ReadWriteThread() throws Exception{
-        readWriteSelector = Selector.open();
-        this.start();
+    public ReadWriteThread() {
+        try {
+            readWriteSelector = Selector.open();
+            this.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

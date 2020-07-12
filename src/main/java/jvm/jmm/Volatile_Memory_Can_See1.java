@@ -1,4 +1,4 @@
-package thread_lock;
+package jvm.jmm;
 
 import sun.misc.Unsafe;
 
@@ -12,6 +12,8 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
  * <p>
  * 写屏障：在指令插入 Store Barrier，能让写入 内存中 的最新数据 更新 写入主 内存，让其他线程可见。
  * 强制写入主内存，这种显示调用，CPU就不会因为性能考虑而去对指令重排。
+ * <p>
+ * volatile底层是Lock指令前缀，等效于加了内存屏障，实现了内存的可见性
  */
 
 public class Volatile_Memory_Can_See1 extends AbstractQueuedSynchronizer {

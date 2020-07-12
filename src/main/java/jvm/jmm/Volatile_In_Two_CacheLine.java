@@ -1,4 +1,4 @@
-package system;
+package jvm.jmm;
 
 /**
  * Created by fengtingting on 2020/6/21.
