@@ -2,6 +2,7 @@ package springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ImportResource;
 
 /**
@@ -13,6 +14,6 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication springApplication = new SpringApplication(Application.class);
-        springApplication.run(args);
+        ConfigurableApplicationContext applicationContext = springApplication.run(args);
     }
 }
