@@ -20,7 +20,7 @@ public class Application {
         springApplication.run(args);
 
         //创建Spring上下文
-        ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         //获取bean的实例
         Object object = context.getBean("myFirstSpringDemo");
         ConfigurableApplicationContext applicationContext = springApplication.run(args);
