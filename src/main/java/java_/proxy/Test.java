@@ -1,8 +1,8 @@
 package java_.proxy;
 
+import java_.proxy.cglib.CGlibInterceptor;
+import java_.proxy.jdk.JdkInvocationHandler;
 import net.sf.cglib.proxy.Enhancer;
-import proxy.cglib.CGlibInterceptor;
-import proxy.jdk.JdkInvocationHandler;
 
 import java.lang.reflect.Proxy;
 

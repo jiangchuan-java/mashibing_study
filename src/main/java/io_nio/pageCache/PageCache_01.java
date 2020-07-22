@@ -1,6 +1,9 @@
-package io_nio;
+package io_nio.pageCache;
+
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.nio.ByteBuffer;
 
 /**
@@ -12,9 +15,12 @@ import java.nio.ByteBuffer;
  */
 public class PageCache_01 {
 
+    static byte[] data = "123456789\n".getBytes();
+
+
     public static void main(String[] args) throws Exception{
 
-        //堆内存数组分配,无任何系统调用，虚拟内存分配后，对应物理内存的使用也在增长，满足映射关系
+/*        //堆内存数组分配,无任何系统调用，虚拟内存分配后，对应物理内存的使用也在增长，满足映射关系
         for(int i=0;i<10000;i++) {
             ByteBuffer byteBuffer = ByteBuffer.allocate(4096);
             byteBuffer.put("123".getBytes());
@@ -24,22 +30,20 @@ public class PageCache_01 {
         for(int i=0;i<10000;i++) {
             ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
             byteBuffer.put("123".getBytes());
-            /*
+            *//*
             * mprotect(0x7f5dc8140000, 4096, PROT_READ|PROT_WRITE) = 0 系统调用
-            * */
+            * *//*
             System.out.println("build offHeap array");
-        }
+        }*/
         //内存分配后需要写入磁盘,虚拟内存分配后，对应物理内存的使用也在增长，满足映射关系
-        FileOutputStream outputStream = new FileOutputStream(new File("/home/jiangchuan/workspace/mashibing_study/src/main/java/io_nio/xxoo.txt"));
-        for(int i=0;i<10000;i++) {
-            byte[] bytes = "123".getBytes();
-            outputStream.write(bytes);
-            /*
-             * open("xxoo.txt", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 14 系统调用
-             * write(14, "123", 3) 系统调用
-             * */
-            System.out.println("build array for disk");
+        File file = new File("/home/jiangchuan/io/xxoo.txt");
+        FileOutputStream outputStream = new FileOutputStream(file);
+        while(true){
+            Thread.sleep(100);
+            outputStream.write(data);
+            outputStream.getFD().sync();
         }
+
 
     }
 }
