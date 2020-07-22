@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by fengtingting on 2020/6/30.
@@ -25,11 +26,11 @@ public class Application {
         BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition("student");
         System.out.println(1);
 
-       /* //创建Spring上下文
+        //创建Spring上下文
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         //获取bean的实例
         Object object = context.getBean("myFirstSpringDemo");
-        ConfigurableApplicationContext applicationContext = springApplication.run(args);
-*/
+
+        new HashMap<String,String>().put("a","b");
     }
 }

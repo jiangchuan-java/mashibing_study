@@ -2,6 +2,8 @@ package io_nio;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  *
@@ -34,12 +36,14 @@ public class PageCache_01 {
         for(int i=0;i<10000;i++) {
             byte[] bytes = "123".getBytes();
             outputStream.write(bytes);
+            outputStream.getFD().sync();
             /*
              * open("xxoo.txt", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 14 系统调用
              * write(14, "123", 3) 系统调用
              * */
             System.out.println("build array for disk");
         }
+
 
     }
 }
