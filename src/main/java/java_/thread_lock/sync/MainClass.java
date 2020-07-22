@@ -1,4 +1,4 @@
-package thread_lock.sync;
+package java_.thread_lock.sync;
 
 import org.openjdk.jol.info.ClassLayout;
 import org.openjdk.jol.info.GraphLayout;

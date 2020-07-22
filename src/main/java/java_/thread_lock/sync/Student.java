@@ -1,4 +1,4 @@
-package thread_lock.sync;
+package java_.thread_lock.sync;
 
 /**
  * Created by fengtingting on 2020/7/10.

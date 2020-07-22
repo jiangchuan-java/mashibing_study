@@ -1,4 +1,4 @@
-package thread_lock;
+package java_.thread_lock;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;

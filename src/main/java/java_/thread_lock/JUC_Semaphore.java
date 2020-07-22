@@ -1,4 +1,4 @@
-package thread_lock;
+package java_.thread_lock;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;

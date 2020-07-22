@@ -1,4 +1,4 @@
-package refence;
+package java_.refence;
 
 import java.lang.ref.SoftReference;
 

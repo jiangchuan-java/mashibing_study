@@ -1,4 +1,4 @@
-package thread_lock;
+package java_.thread_lock;
 
 import java.lang.ref.PhantomReference;
 import java.lang.ref.Reference;

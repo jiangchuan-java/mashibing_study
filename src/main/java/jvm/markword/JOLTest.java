@@ -1,4 +1,4 @@
-package markword;
+package jvm.markword;
 
 import org.openjdk.jol.info.ClassLayout;
 import org.openjdk.jol.info.GraphLayout;
