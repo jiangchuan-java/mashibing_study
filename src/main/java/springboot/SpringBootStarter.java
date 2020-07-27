@@ -1,6 +1,6 @@
 package springboot;
 
-import org.springframework.beans.factory.config.BeanDefinition;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -8,6 +8,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import springboot.beida.Student;
 
 /**
  * Created by fengtingting on 2020/6/30.
@@ -29,7 +30,9 @@ public class SpringBootStarter {
         //启动springboot
         SpringApplication springApplication = new SpringApplication(SpringBootStarter.class);
         ConfigurableApplicationContext applicationContext = springApplication.run(args);
-        BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition("student");
+        Student student = (Student) applicationContext.getBean("student");
+        System.out.println(student.getName());
+
     }
 
     public static void main(String[] args) {
