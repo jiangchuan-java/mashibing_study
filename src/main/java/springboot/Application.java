@@ -18,17 +18,20 @@ import java.util.HashMap;
 @ImportResource("classpath:applicationContext.xml")
 public class Application {
 
-    public static void main(String[] args) {
-        //启动springboot
-        SpringApplication springApplication = new SpringApplication(Application.class);
-        ConfigurableApplicationContext applicationContext = springApplication.run(args);
-        BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition("student");
-
+    private static void buildSpringContext(){
         /*创建这种XmlContext时， beanFactory是在refresh方法里的ObtainBeanFactory中refreshBeanFactory时进行创建的*/
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         /*创建这种AnotationContext时，在对应的构造方法里创建了beanFactoryr*/
         context = new AnnotationConfigApplicationContext();
         //获取bean的实例
         Object object = context.getBean("myFirstSpringDemo");
+    }
+
+    public static void main(String[] args) {
+        //启动springboot
+        SpringApplication springApplication = new SpringApplication(Application.class);
+        ConfigurableApplicationContext applicationContext = springApplication.run(args);
+        BeanDefinition beanDefinition = applicationContext.getBeanFactory().getBeanDefinition("student");
+
     }
 }
