@@ -30,9 +30,16 @@ public class SpringBootStarter {
         //启动springboot
         SpringApplication springApplication = new SpringApplication(SpringBootStarter.class);
         ConfigurableApplicationContext applicationContext = springApplication.run(args);
-        Student student = (Student) applicationContext.getBean("student");
-        System.out.println(student.getName());
 
+        Thread thread1 = (Thread) applicationContext.getBean("thread");
+        Thread thread2 = (Thread) applicationContext.getBean("thread");
+        System.out.println(thread1.getName());
+        System.out.println(thread2.getName());
+
+        Student student1 = (Student) applicationContext.getBean("student");
+        Student student2 = (Student) applicationContext.getBean("student");
+        System.out.println(student1.getName());
+        System.out.println(student2.getName());
     }
 
     public static void main(String[] args) {

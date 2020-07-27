@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 public class Student {
 
-    private String name = "jiangchuan";
+    private String name;
 
     public String getName() {
         return name;
