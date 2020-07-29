@@ -35,6 +35,7 @@ public class SpringBootStarter {
         Thread thread2 = (Thread) applicationContext.getBean("thread");
         System.out.println(thread1.getName());
         System.out.println(thread2.getName());
+        Student student = (Student) applicationContext.getBean("student");
 
     }
 

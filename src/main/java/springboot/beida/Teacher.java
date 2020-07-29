@@ -1,6 +1,7 @@
 package springboot.beida;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,7 +10,8 @@ import org.springframework.stereotype.Component;
  * <p>
  * @Date: 20-7-29
  */
-@Component(value = "teacher")
+@Component()
+@Scope("prototype")
 public class Teacher {
 
     @Autowired
