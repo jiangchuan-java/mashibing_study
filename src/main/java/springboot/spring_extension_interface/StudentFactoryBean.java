@@ -7,13 +7,12 @@ import springboot.beida.Student;
 
 import java.util.Random;
 
-@Component("student")
+//@Component("student")
 public class StudentFactoryBean implements FactoryBean<Student> {
     @Override
     public Student getObject() throws Exception {
         System.out.println("调用自定义的StudentFactoryBean");
         Student student = new Student();
-        student.setName(""+new Random().nextInt());
         return student;
     }
 

@@ -36,10 +36,6 @@ public class SpringBootStarter {
         System.out.println(thread1.getName());
         System.out.println(thread2.getName());
 
-        Student student1 = (Student) applicationContext.getBean("student");
-        Student student2 = (Student) applicationContext.getBean("student");
-        System.out.println(student1.getName());
-        System.out.println(student2.getName());
     }
 
     public static void main(String[] args) {

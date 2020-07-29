@@ -1,5 +1,6 @@
 package springboot.beida;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -9,15 +10,17 @@ import org.springframework.stereotype.Component;
  * <p>
  * @Date: 20-7-20
  */
+@Component(value = "student")
 public class Student {
 
-    private String name;
+    @Autowired
+    private Teacher teacher;
 
-    public String getName() {
-        return name;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }
