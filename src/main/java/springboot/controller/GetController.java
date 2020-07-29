@@ -1,4 +1,4 @@
-package springboot;
+package springboot.controller;
 
 
 import org.springframework.stereotype.Controller;
