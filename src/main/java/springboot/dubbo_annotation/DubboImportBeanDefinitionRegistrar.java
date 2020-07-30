@@ -1,4 +1,4 @@
-package springboot.custom_annotation;
+package springboot.dubbo_annotation;
 
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;

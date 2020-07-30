@@ -1,4 +1,4 @@
-package springboot.custom_annotation;
+package springboot.dubbo_annotation;
 
 import org.springframework.context.annotation.Import;
 

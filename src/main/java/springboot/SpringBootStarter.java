@@ -8,7 +8,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import springboot.custom_annotation.DubboComponentScan;
+import springboot.dubbo_annotation.DubboComponentScan;
 import springboot.entry.Student;
 
 /**
