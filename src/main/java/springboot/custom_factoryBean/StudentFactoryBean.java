@@ -1,11 +1,8 @@
-package springboot.spring_extension_interface;
+package springboot.custom_factoryBean;
 
 
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.stereotype.Component;
-import springboot.beida.Student;
-
-import java.util.Random;
+import springboot.entry.Student;
 
 //@Component("student")
 public class StudentFactoryBean implements FactoryBean<Student> {

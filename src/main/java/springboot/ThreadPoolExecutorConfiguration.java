@@ -1,4 +1,4 @@
-package springboot.spring_extension_interface;
+package springboot;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

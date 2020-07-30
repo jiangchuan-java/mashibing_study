@@ -8,13 +8,15 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import springboot.beida.Student;
+import springboot.custom_annotation.DubboComponentScan;
+import springboot.entry.Student;
 
 /**
  * Created by fengtingting on 2020/6/30.
  */
 @SpringBootApplication
 @ImportResource("classpath:applicationContext.xml")
+@DubboComponentScan
 public class SpringBootStarter {
 
     private static void buildSpring(String[] args){

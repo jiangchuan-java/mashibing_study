@@ -1,9 +1,9 @@
-package springboot.spring_extension_interface;
+package springboot.custom_factoryBean;
 
 
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Component;
-import springboot.beida.Student;
+import springboot.entry.Student;
 
 @Component("thread")
 public class ThreadFactoryBean implements FactoryBean<Thread> {

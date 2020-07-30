@@ -6,7 +6,7 @@
 
 
 <!--
-    <bean id="student" class="springboot.beida.Student">
+    <bean id="student" class="springboot.entry.Student">
 
     </bean>
 -->
