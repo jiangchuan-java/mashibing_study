@@ -2,6 +2,7 @@ package springboot.custom_factoryBean;
 
 
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import springboot.entry.Student;
 
 //@Component("student")

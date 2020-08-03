@@ -1,26 +1,31 @@
 package springboot.custom_postPorcessor;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.beans.factory.support.MergedBeanDefinitionPostProcessor;
+import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.stereotype.Component;
 
 /**
  * @Des:
  * @Author: jiangchuan
  * <p>
- * @Date: 20-7-29
+ * @Date: 20-7-30
  */
 @Component
-public class MyBeanPostProcessor implements BeanPostProcessor {
+public class MyMergedBeanDefinitionPostProcessor implements MergedBeanDefinitionPostProcessor {
+
+    @Override
+    public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {
+        System.out.println("postProcessMergedBeanDefinition");
+    }
+
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("postProcessBeforeInitialization");
         return bean;
     }
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("postProcessAfterInitialization");
         return bean;
     }
 }
