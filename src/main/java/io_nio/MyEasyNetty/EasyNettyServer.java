@@ -27,7 +27,7 @@ public class EasyNettyServer {
         System.out.println("server start");
 
         while (true) {
-            int readyNum = acceptSelector.select(100);
+            int readyNum = acceptSelector.select(); //阻塞 直到有连接
             if (readyNum > 0) {
                 Set<SelectionKey> keySet = acceptSelector.selectedKeys();
                 Iterator<SelectionKey> iterator = keySet.iterator();

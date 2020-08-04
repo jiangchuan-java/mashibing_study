@@ -18,7 +18,7 @@ public class EasyNettyClient {
         Selector selector = Selector.open();
         socketChannel.register(selector, SelectionKey.OP_WRITE);
         while (true){
-            int nums = selector.select(100);
+            int nums = selector.select();//阻塞 直到可写
             System.out.println(nums);
             if(nums > 0){
                 Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();

@@ -43,7 +43,7 @@ public class ReadWriteThread extends Thread{
                     SocketChannel socketChannel = socketList.removeFirst();
                     socketChannel.register(readWriteSelector, SelectionKey.OP_READ);
                 }
-                int readyNum = readWriteSelector.select(100);
+                int readyNum = readWriteSelector.select(100); //阻塞100毫秒，其他时间处理task
                 if (readyNum > 0) {
                     Set<SelectionKey> keySet = readWriteSelector.selectedKeys();
                     Iterator<SelectionKey> iterator = keySet.iterator();
