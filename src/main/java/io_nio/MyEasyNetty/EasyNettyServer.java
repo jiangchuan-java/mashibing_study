@@ -17,17 +17,14 @@ public class EasyNettyServer {
 
     private static ReadWriteThread readWriteThread = new ReadWriteThread();
 
-
-    public static void main(String[] args) throws Exception {
+    public void accept() throws Exception{
         Selector acceptSelector = Selector.open();
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.configureBlocking(false);
         serverSocketChannel.bind(new InetSocketAddress("127.0.0.1", 9090));
         serverSocketChannel.register(acceptSelector, SelectionKey.OP_ACCEPT);
 
-
         System.out.println("server start");
-
 
         while (true) {
             int readyNum = acceptSelector.select(100);
@@ -45,7 +42,11 @@ public class EasyNettyServer {
                 }
             }
         }
+    }
 
+    public static void main(String[] args) throws Exception {
+            EasyNettyServer easyNettyServer = new EasyNettyServer();
+            easyNettyServer.accept();
     }
 
 }
