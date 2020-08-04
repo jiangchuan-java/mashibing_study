@@ -60,6 +60,7 @@ public class ReadWriteThread extends Thread{
                                 /*读取到-1，说明client已经关闭了，服务端也要进行主动关闭，以免造成close_wait浪费文件描述符*/
                                 System.out.println("read from "+socketChannel.getRemoteAddress()+" close");
                                 socketChannel.close();
+                                readyKey.cancel(); //从多路复用器中移除
                             }
 
                         } else if (readyKey.isWritable()) { /*写事件*/
