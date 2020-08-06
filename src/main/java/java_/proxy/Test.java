@@ -26,11 +26,6 @@ public class Test {
 
         HelloWorld cglibProxy = (HelloWorld) enhancer.create();
 
-        enhancer.setSuperclass(cglibProxy.getClass());
-        enhancer.setCallback(interceptor);
-
-       enhancer.create();
-
         System.out.println("cglib2 - 动态代理对象的类型："+cglibProxy.getClass().getName());
         cglibProxy.say();
         cglibProxy.eat();

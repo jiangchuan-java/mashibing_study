@@ -1,7 +1,6 @@
 package springboot;
 
 
-import org.aspectj.lang.annotation.Aspect;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -9,15 +8,15 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import springboot.dubbo_annotation.DubboComponentScan;
-import springboot.entry.Student;
+import springboot.autoProxy_annotation.EnableCustomProxyAnnotation;
+import springboot.entry.Worker;
 
 /**
  * Created by fengtingting on 2020/6/30.
  */
 @SpringBootApplication
 @ImportResource("classpath:applicationContext.xml")
-@DubboComponentScan
+@EnableCustomProxyAnnotation
 public class SpringBootStarter {
 
     private static void buildSpring(String[] args){
@@ -34,11 +33,10 @@ public class SpringBootStarter {
         SpringApplication springApplication = new SpringApplication(SpringBootStarter.class);
         ConfigurableApplicationContext applicationContext = springApplication.run(args);
 
-        Thread thread1 = (Thread) applicationContext.getBean("thread");
-        Thread thread2 = (Thread) applicationContext.getBean("thread");
-        System.out.println(thread1.getName());
-        System.out.println(thread2.getName());
-        Student student = (Student) applicationContext.getBean("student");
+        Worker worker = applicationContext.getBean("worker", Worker.class);
+        worker.doWork();
+        worker.stopWork();
+
 
     }
 
