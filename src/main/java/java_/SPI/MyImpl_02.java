@@ -1,4 +1,4 @@
-package SPI;
+package java_.SPI;
 
 /**
  * @Des:
@@ -6,9 +6,9 @@ package SPI;
  * <p>
  * @Date: 20-8-12
  */
-public class MyImpl_01 implements MyInterface{
+public class MyImpl_02 implements MyInterface{
     @Override
     public void say() {
-        System.out.println("hello I'm 01");
+        System.out.println("hello I'm 02");
     }
 }

@@ -1,6 +1,4 @@
-package java_collection;
-
-import java.util.Comparator;
+package java_.collection;
 
 public class Student implements Comparable<Student>{
     private String name;

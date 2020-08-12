@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
  *
  * Created by fengtingting on 2020/7/12.
  */
-public class DIY_ClassLoader extends ClassLoader{
+public class File_ClassLoader extends ClassLoader{
 
     @Override
     protected Class<?> findClass(String allPathClassName) throws ClassNotFoundException {
@@ -32,7 +32,7 @@ public class DIY_ClassLoader extends ClassLoader{
     }
 
     public static void main(String[] args) throws Exception{
-        ClassLoader diyClassLoader = new DIY_ClassLoader();
+        ClassLoader diyClassLoader = new File_ClassLoader();
         Class c = diyClassLoader.loadClass("mashibing_study.src.main.java.jvm.jvm.classloader.Student");
         Method[] methods = c.getDeclaredMethods();
         for(Method m : methods){
