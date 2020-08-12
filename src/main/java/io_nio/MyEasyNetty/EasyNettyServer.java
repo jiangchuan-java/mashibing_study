@@ -30,6 +30,7 @@ public class EasyNettyServer {
             int readyNum = acceptSelector.select(); //阻塞 直到有连接
             if (readyNum > 0) {
                 Set<SelectionKey> keySet = acceptSelector.selectedKeys();
+                acceptSelector.wakeup();
                 Iterator<SelectionKey> iterator = keySet.iterator();
                 while (iterator.hasNext()){
                     SelectionKey readyKey = iterator.next();

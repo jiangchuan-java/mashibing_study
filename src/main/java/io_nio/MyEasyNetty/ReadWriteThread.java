@@ -49,7 +49,8 @@ public class ReadWriteThread extends Thread{
                     Iterator<SelectionKey> iterator = keySet.iterator();
                     while (iterator.hasNext()){
                         SelectionKey readyKey = iterator.next();
-                        if(readyKey.isReadable()){ /*读事件*/
+                        /*读事件*/
+                        if(readyKey.isReadable()){
                             SocketChannel socketChannel = (SocketChannel) readyKey.channel();
                             ByteBuffer byteBuffer = ByteBuffer.allocate(64);
                             int readNum = socketChannel.read(byteBuffer);
@@ -63,7 +64,8 @@ public class ReadWriteThread extends Thread{
                                 readyKey.cancel(); //从多路复用器中移除
                             }
 
-                        } else if (readyKey.isWritable()) { /*写事件*/
+                        } /*写事件*/
+                        else if (readyKey.isWritable()) {
                             SocketChannel socketChannel = (SocketChannel) readyKey.channel();
                             ByteBuffer byteBuffer = ByteBuffer.allocate(64);
                             byteBuffer.put("hello I'm server".getBytes());

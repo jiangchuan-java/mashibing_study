@@ -24,11 +24,14 @@ public class EasyNettyClient {
                 Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
                 while (iterator.hasNext()){
                     SelectionKey selectionKey = iterator.next();
+                    /*已连接事件*/
                     if(selectionKey.isConnectable()){
                         SocketChannel clientChanel = (SocketChannel) selectionKey.channel();
                         clientChanel.configureBlocking(false);
                         clientChanel.register(selector, SelectionKey.OP_WRITE);
-                    } else if (selectionKey.isWritable()){
+                    }
+                    /*已连接事件*/
+                    else if (selectionKey.isWritable()){
                         SocketChannel clientChanel = (SocketChannel) selectionKey.channel();
                         clientChanel.configureBlocking(false);
                         ByteBuffer byteBuffer = ByteBuffer.allocate(64);
@@ -36,7 +39,9 @@ public class EasyNettyClient {
                         byteBuffer.flip();
                         clientChanel.write(byteBuffer);
                         clientChanel.register(selector, SelectionKey.OP_READ);
-                    } else if (selectionKey.isReadable()){
+                    }
+                    /*可读事件*/
+                    else if (selectionKey.isReadable()){
                         SocketChannel clientChanel = (SocketChannel) selectionKey.channel();
                         clientChanel.configureBlocking(false);
                         ByteBuffer byteBuffer = ByteBuffer.allocate(64);
