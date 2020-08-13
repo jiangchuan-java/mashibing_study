@@ -8,4 +8,9 @@ package servlet_container.tomcat;
  * @date 2020/8/13 23:23
  */
 public class TomcatServer {
+
+    //main方法启动tomcat，访问8080端口可以出猫的页面
+    public static void main(String[] args) {
+
+    }
 }
