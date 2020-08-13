@@ -13,7 +13,7 @@ public class EasyNettyClient {
     public void connect() throws Exception{
         SocketChannel socketChannel = SocketChannel.open();
         socketChannel.configureBlocking(false);
-        boolean connect = socketChannel.connect(new InetSocketAddress("127.0.0.1",9090));
+        boolean connect = socketChannel.connect(new InetSocketAddress("127.0.0.1",8080));
         socketChannel.finishConnect();
         Selector selector = Selector.open();
         socketChannel.register(selector, SelectionKey.OP_WRITE);

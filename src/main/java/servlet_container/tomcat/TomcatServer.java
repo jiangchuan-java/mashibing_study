@@ -33,10 +33,15 @@ public class TomcatServer {
         serverSocketChannel.bind(new InetSocketAddress("127.0.0.1",8080));
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         while (true) {
-            int readyNum = selector.select(100);
-            if(readyNum > 0){
-                doReadyEvent(selector);
+            try{
+                int readyNum = selector.select(100);
+                if(readyNum > 0){
+                    doReadyEvent(selector);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
+
         }
     }
 
@@ -47,16 +52,34 @@ public class TomcatServer {
             if(selectionKey.isAcceptable()){
                 ServerSocketChannel server = (ServerSocketChannel) selectionKey.channel();
                 SocketChannel client = server.accept();
+                System.out.println("accept from "+client.getRemoteAddress());
                 client.configureBlocking(false);
                 client.register(selector, SelectionKey.OP_READ);
             } else if (selectionKey.isReadable()) {
-                SocketChannel client = (SocketChannel) selectionKey.channel();
-                client.configureBlocking(false);
-                /*File file = new File("src/main/java/servlet_container/tomcat/index.html");
-                byte[] bytes = fileConvertToByteArray(file);*/
-                ByteBuffer byteBuffer = ByteBuffer.allocate(64);
-                byteBuffer.put("hello".getBytes());
-                client.write(byteBuffer);
+                SocketChannel clientChanel = (SocketChannel) selectionKey.channel();
+                clientChanel.configureBlocking(false);
+                ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+                int readNum = clientChanel.read(byteBuffer);
+                if(readNum >= 0){
+                    System.out.println("read from "+clientChanel.getRemoteAddress()+" "+ new String(byteBuffer.array()));
+                    clientChanel.register(selector, SelectionKey.OP_WRITE);
+                } else {
+                    //读取到-1，说明client已经关闭了，服务端也要进行主动关闭，以免造成close_wait浪费文件描述符
+                    System.out.println("read from "+clientChanel.getRemoteAddress()+" close");
+                    clientChanel.close();
+                }
+            } else if (selectionKey.isWritable()) {
+                SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
+                File file = new File("src/main/java/servlet_container/tomcat/index.html");
+                byte[] bytes = fileConvertToByteArray(file);
+                ByteBuffer byteBuffer = ByteBuffer.allocate(bytes.length);
+                byteBuffer.put(bytes);
+                byteBuffer.flip();
+                socketChannel.write(byteBuffer);
+                //写事件执行完毕后，要将对应的文件描述符从epoll的红黑树中移除，以免重复触发写事件
+                socketChannel.register(selector, SelectionKey.OP_READ);
+            } else {
+                System.out.println("非读写事件发生了");
             }
             iterator.remove();
         }
