@@ -10,10 +10,12 @@ Spring扩展点：其核心实现类是ConfigurationClassPostProcessor
    1. @Configuration + @Bean
    2. @Import(引入接口扩展点)
    3. @Component引入一个普通的组件
+
 * 接口类的扩展点，需配合@Import使用
    1. ImportSelector： 
    2. ImportBeanDefinitionRegistrar
-* postProcessor
+
+* postProcessor扩展点
    1.BeanFactoryPostProcessor
    2.InstantiationAwareBeanPostProcessor -> aop
    3.BeanPostProcessor
