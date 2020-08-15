@@ -46,6 +46,7 @@ public class TomcatServer {
 
     }
 
+    //接收请求的handler
     private class MyAcceptHandler extends ChannelInboundHandlerAdapter {
 
         private NioEventLoopGroup selectorPool;
@@ -71,6 +72,7 @@ public class TomcatServer {
 
     }
 
+    //处理读写的handler
     @ChannelHandler.Sharable
     private class MyReadHandler extends ChannelInboundHandlerAdapter {
 
