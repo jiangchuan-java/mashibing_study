@@ -1,5 +1,13 @@
 package servlet_container.tomcat;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.*;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.util.CharsetUtil;
+import io.netty.util.concurrent.EventExecutorGroup;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,87 +34,58 @@ public class TomcatServer {
     }
 
     public void init() throws Exception{
-        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-        Selector selector = Selector.open();
+        NioEventLoopGroup selectorPool = new NioEventLoopGroup(1);
+        NioServerSocketChannel server = new NioServerSocketChannel();
+        selectorPool.register(server);
+        server.pipeline().addLast(new MyAcceptHandler(selectorPool, new MyReadHandler(selectorPool)));
 
-        serverSocketChannel.configureBlocking(false);
-        serverSocketChannel.bind(new InetSocketAddress("127.0.0.1",8080));
-        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-        while (true) {
-            try{
-                int readyNum = selector.select(100);
-                if(readyNum > 0){
-                    doReadyEvent(selector);
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        ChannelFuture channelFuture = server.bind(new InetSocketAddress("127.0.0.1",9090));
+        channelFuture.sync();
+        System.out.println("server start at 9090");
+        channelFuture.channel().closeFuture().sync();
 
-        }
     }
 
-    private void doReadyEvent(Selector selector) throws Exception{
-        Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
-        while (iterator.hasNext()) {
-            SelectionKey selectionKey = iterator.next();
-            if(selectionKey.isAcceptable()){
-                ServerSocketChannel server = (ServerSocketChannel) selectionKey.channel();
-                SocketChannel client = server.accept();
-                System.out.println("accept from "+client.getRemoteAddress());
-                client.configureBlocking(false);
-                client.register(selector, SelectionKey.OP_READ);
-            } else if (selectionKey.isReadable()) {
-                SocketChannel clientChanel = (SocketChannel) selectionKey.channel();
-                clientChanel.configureBlocking(false);
-                ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-                int readNum = clientChanel.read(byteBuffer);
-                if(readNum >= 0){
-                    System.out.println("read from "+clientChanel.getRemoteAddress()+" "+ new String(byteBuffer.array()));
-                    clientChanel.register(selector, SelectionKey.OP_WRITE);
-                } else {
-                    //读取到-1，说明client已经关闭了，服务端也要进行主动关闭，以免造成close_wait浪费文件描述符
-                    System.out.println("read from "+clientChanel.getRemoteAddress()+" close");
-                    clientChanel.close();
-                }
-            } else if (selectionKey.isWritable()) {
-                SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
-                File file = new File("src/main/java/servlet_container/tomcat/index.html");
-                byte[] bytes = fileConvertToByteArray(file);
-                ByteBuffer byteBuffer = ByteBuffer.allocate(bytes.length);
-                byteBuffer.put(bytes);
-                byteBuffer.flip();
-                socketChannel.write(byteBuffer);
-                //写事件执行完毕后，要将对应的文件描述符从epoll的红黑树中移除，以免重复触发写事件
-                socketChannel.register(selector, SelectionKey.OP_READ);
-            } else {
-                System.out.println("非读写事件发生了");
-            }
-            iterator.remove();
+    private class MyAcceptHandler extends ChannelInboundHandlerAdapter {
+
+        private NioEventLoopGroup selectorPool;
+        private MyReadHandler readHandler;
+
+        public MyAcceptHandler(NioEventLoopGroup selectorPool, MyReadHandler readHandler) {
+            this.selectorPool = selectorPool;
+            this.readHandler = readHandler;
         }
+
+        @Override
+        public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+            System.out.println("do registered and fire active (if first register)");
+        }
+
+        @Override
+        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+            NioSocketChannel client = (NioSocketChannel) msg;
+            selectorPool.register(client);
+            client.pipeline().addLast(readHandler);
+
+        }
+
     }
 
-    private byte[] fileConvertToByteArray(File file) {
-        byte[] data = null;
+    @ChannelHandler.Sharable
+    private class MyReadHandler extends ChannelInboundHandlerAdapter {
 
-        try {
-            FileInputStream fis = new FileInputStream(file);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        private NioEventLoopGroup selectorPool;
 
-            int len;
-            byte[] buffer = new byte[102400];
-            while ((len = fis.read(buffer)) != -1) {
-                baos.write(buffer, 0, len);
-            }
-
-            data = baos.toByteArray();
-
-            fis.close();
-            baos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        public MyReadHandler(NioEventLoopGroup selectorPool) {
+            this.selectorPool = selectorPool;
         }
 
-        return data;
+        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+            ByteBuf byteBuf = (ByteBuf) msg;
+            CharSequence str = byteBuf.getCharSequence(0,byteBuf.readableBytes(), CharsetUtil.UTF_8);
+            System.out.println("receive from client " + ctx.channel().remoteAddress().toString()+" with " + str);
+            ctx.writeAndFlush(byteBuf);
+        }
     }
 
     //main方法启动tomcat，访问8080端口可以出猫的页面
@@ -114,6 +93,7 @@ public class TomcatServer {
         TomcatServer tomcat = new TomcatServer();
         tomcat.start();
     }
+
 
 
 }

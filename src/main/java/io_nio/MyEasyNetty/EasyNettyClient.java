@@ -13,7 +13,7 @@ public class EasyNettyClient {
     public void connect() throws Exception{
         SocketChannel socketChannel = SocketChannel.open();
         socketChannel.configureBlocking(false);
-        boolean connect = socketChannel.connect(new InetSocketAddress("127.0.0.1",8080));
+        boolean connect = socketChannel.connect(new InetSocketAddress("127.0.0.1",9090));
         socketChannel.finishConnect();
         Selector selector = Selector.open();
         socketChannel.register(selector, SelectionKey.OP_WRITE);
@@ -49,7 +49,6 @@ public class EasyNettyClient {
                         if(readNum >= 0){
                             System.out.println("read from "+socketChannel.getRemoteAddress()+" "+ new String(byteBuffer.array()));
                             socketChannel.close();
-                            System.exit(99);
                         } else {
                             /*读取到-1，说明client已经关闭了，服务端也要进行主动关闭，以免造成close_wait浪费文件描述符*/
                             System.out.println("read from "+socketChannel.getRemoteAddress()+" close");
@@ -63,7 +62,19 @@ public class EasyNettyClient {
     }
 
     public static void main(String[] args) throws Exception{
-        EasyNettyClient easyNettyClient = new EasyNettyClient();
-        easyNettyClient.connect();
+        for(int i = 0; i<10;i++){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        EasyNettyClient easyNettyClient = new EasyNettyClient();
+                        easyNettyClient.connect();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+
     }
 }
