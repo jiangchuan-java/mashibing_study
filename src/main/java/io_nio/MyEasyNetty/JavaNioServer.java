@@ -13,9 +13,9 @@ import java.util.Set;
  * 自己实现的一个简单的Netty服务端，基于javaNio
  * Created by fengtingting on 2020/7/9.
  */
-public class EasyNettyServer {
+public class JavaNioServer {
 
-    private static ReadWriteThread readWriteThread = new ReadWriteThread();
+    private static SelectorThread readWriteThread = new SelectorThread();
 
     public void accept() throws Exception{
         Selector acceptSelector = Selector.open();
@@ -34,19 +34,14 @@ public class EasyNettyServer {
                 Iterator<SelectionKey> iterator = keySet.iterator();
                 while (iterator.hasNext()){
                     SelectionKey readyKey = iterator.next();
-                    ServerSocketChannel serverSocket = (ServerSocketChannel) readyKey.channel();
-                    SocketChannel socketChannel = serverSocket.accept();
-                    System.out.println("accept from "+socketChannel.getRemoteAddress());
-                    socketChannel.configureBlocking(false);
-                    readWriteThread.addNewSocket(socketChannel);
-                    iterator.remove();
+
                 }
             }
         }
     }
 
     public static void main(String[] args) throws Exception {
-            EasyNettyServer easyNettyServer = new EasyNettyServer();
+            JavaNioServer easyNettyServer = new JavaNioServer();
             easyNettyServer.accept();
     }
 

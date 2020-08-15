@@ -6,9 +6,8 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
-import java.util.Set;
 
-public class EasyNettyClient {
+public class JavaNioClient {
 
     public void connect() throws Exception{
         SocketChannel socketChannel = SocketChannel.open();
@@ -67,7 +66,7 @@ public class EasyNettyClient {
                 @Override
                 public void run() {
                     try {
-                        EasyNettyClient easyNettyClient = new EasyNettyClient();
+                        JavaNioClient easyNettyClient = new JavaNioClient();
                         easyNettyClient.connect();
                     }catch (Exception e){
                         e.printStackTrace();

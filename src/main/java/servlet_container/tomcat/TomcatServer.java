@@ -24,9 +24,10 @@ public class TomcatServer {
 
     public void init() throws Exception{
         NioEventLoopGroup selectorPool = new NioEventLoopGroup(1);
+        NioEventLoopGroup workerPool = new NioEventLoopGroup(5);
         NioServerSocketChannel server = new NioServerSocketChannel();
+        server.pipeline().addLast(new MyAcceptHandler(workerPool, new MyReadHandler(workerPool)));
         selectorPool.register(server);
-        server.pipeline().addLast(new MyAcceptHandler(selectorPool, new MyReadHandler(selectorPool)));
 
         ChannelFuture channelFuture = server.bind(new InetSocketAddress("127.0.0.1",9090));
         channelFuture.sync();
@@ -48,7 +49,7 @@ public class TomcatServer {
 
         @Override
         public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-            System.out.println("do registered and fire active (if first register)");
+            System.out.println(Thread.currentThread().getName()+" do registered and fire active (if first register)");
         }
 
         @Override
@@ -74,7 +75,7 @@ public class TomcatServer {
         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
             ByteBuf byteBuf = (ByteBuf) msg;
             CharSequence str = byteBuf.getCharSequence(0,byteBuf.readableBytes(), CharsetUtil.UTF_8);
-            System.out.println("receive from client " + ctx.channel().remoteAddress().toString()+" with " + str);
+            System.out.println(Thread.currentThread().getName()+" receive from client " + ctx.channel().remoteAddress().toString()+" with " + str);
             ctx.writeAndFlush(byteBuf);
         }
     }
