@@ -1,4 +1,4 @@
-package io_nio.MyEasyNetty;
+package io_nio.MyJavaNio;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

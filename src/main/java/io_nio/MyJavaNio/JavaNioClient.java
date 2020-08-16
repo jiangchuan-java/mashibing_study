@@ -1,4 +1,4 @@
-package io_nio.MyEasyNetty;
+package io_nio.MyJavaNio;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
