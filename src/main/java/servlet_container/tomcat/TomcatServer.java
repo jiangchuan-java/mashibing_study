@@ -10,7 +10,7 @@ import java.net.InetSocketAddress;
 
 
 /**
- * 实现一个tomcat服务，可以进行网络通信,使用java-nio
+ * 实现一个tomcat服务，可以进行网络通信,使用netty
  *
  * @author fengtingting
  * @version 1.0
