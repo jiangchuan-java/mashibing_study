@@ -17,26 +17,14 @@ public class JavaNioServer {
     private static SelectorThread readWriteThread = new SelectorThread();
 
     public void accept() throws Exception{
-        Selector acceptSelector = Selector.open();
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.configureBlocking(false);
         serverSocketChannel.bind(new InetSocketAddress("127.0.0.1", 9090));
-        serverSocketChannel.register(acceptSelector, SelectionKey.OP_ACCEPT);
 
-        System.out.println("server start");
-
-        while (true) {
-            int readyNum = acceptSelector.select(); //阻塞 直到有连接
-            if (readyNum > 0) {
-                Set<SelectionKey> keySet = acceptSelector.selectedKeys();
-                acceptSelector.wakeup();
-                Iterator<SelectionKey> iterator = keySet.iterator();
-                while (iterator.hasNext()){
-                    SelectionKey readyKey = iterator.next();
-
-                }
-            }
-        }
+        SelectorTheadGroup bossGroup = new SelectorTheadGroup(1);
+        SelectorTheadGroup childGroup = new SelectorTheadGroup(5);
+        bossGroup.setChildGroup(childGroup);
+        bossGroup.register(serverSocketChannel);
     }
 
     public static void main(String[] args) throws Exception {
