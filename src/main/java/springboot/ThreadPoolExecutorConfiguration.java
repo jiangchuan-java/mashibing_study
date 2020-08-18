@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.concurrent.*;
 
-@Configuration
+//@Configuration
 /**
  * @Configuration注解与<Beans></Beans>标签效果等同。
  * 标识这个类中含有一个或多个@Bean声明的实体
