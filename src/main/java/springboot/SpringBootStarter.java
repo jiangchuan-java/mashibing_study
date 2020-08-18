@@ -30,7 +30,7 @@ public class SpringBootStarter {
 
     private static void buldSpringBoot(String[] args){
         //启动springboot
-        SpringApplication springApplication = new SpringApplication(SpringBootStarter.class);
+        SpringApplication springApplication = new SpringApplication(SpringBootStarter.class, ThreadPoolExecutorConfiguration.class);
         ConfigurableApplicationContext applicationContext = springApplication.run(args);
 
         Worker worker = applicationContext.getBean("worker", Worker.class);
