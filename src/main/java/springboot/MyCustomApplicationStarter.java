@@ -1,12 +1,9 @@
 package springboot;
 
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,10 +19,9 @@ import org.springframework.stereotype.Component;
 public class MyCustomApplicationStarter {
 
     public static void main(String[] args) throws Exception{
-        GenericApplicationContext applicationContext = new GenericApplicationContext();
-        DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory) applicationContext.getBeanFactory();
-        beanFactory.registerSingleton("myCustomApplicationStarter", new MyCustomApplicationStarter());
-        applicationContext.refresh();
+        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext();
+        annotationConfigApplicationContext.register(MyCustomApplicationStarter.class);
+        annotationConfigApplicationContext.refresh();
         System.in.read();
     }
 }
