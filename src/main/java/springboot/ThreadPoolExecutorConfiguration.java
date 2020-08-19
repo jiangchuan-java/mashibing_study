@@ -1,15 +1,18 @@
 package springboot;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import springboot.typeFilter.CustomExcludeTypeFilter;
+import springboot.typeFilter.CustomIncludeTypeFilter;
 
 import java.util.concurrent.*;
 
-//@Configuration
-/**
- * @Configuration注解与<Beans></Beans>标签效果等同。
- * 标识这个类中含有一个或多个@Bean声明的实体
- */
+
+@ComponentScan(
+        includeFilters = {@ComponentScan.Filter(type = FilterType.CUSTOM, classes = CustomIncludeTypeFilter.class)},
+        excludeFilters = {@ComponentScan.Filter(type = FilterType.CUSTOM, classes = CustomExcludeTypeFilter.class)})
+//这些filter只有在处理该@ComponentScans时才会生效
 public class ThreadPoolExecutorConfiguration {
 
     @Bean

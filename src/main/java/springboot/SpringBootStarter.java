@@ -6,10 +6,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.type.filter.TypeFilter;
 import springboot.autoProxy_annotation.EnableCustomProxyAnnotation;
 import springboot.entry.Worker;
+import springboot.typeFilter.CustomExcludeTypeFilter;
+import springboot.typeFilter.CustomIncludeTypeFilter;
 
 /**
  * Created by fengtingting on 2020/6/30.
