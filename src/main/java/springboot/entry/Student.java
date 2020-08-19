@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * <p>
  * @Date: 20-7-20
  */
-@Component()
+@Component(value = "student")
 //@Scope("prototype")
 public class Student {
 
