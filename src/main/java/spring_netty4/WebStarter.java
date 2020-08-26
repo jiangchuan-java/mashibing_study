@@ -2,6 +2,7 @@ package spring_netty4;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import spring_netty4.spring.DistributionSpringApplicationContext;
 
 /**
  * @Des:
@@ -13,7 +14,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WebStarter {
 
     public static void main(String[] args) {
-        SpringApplication springApplication = new SpringApplication(WebStarter.class);
-        springApplication.run(args);
+        DistributionSpringApplicationContext applicationContext = new DistributionSpringApplicationContext();
+        applicationContext.register(WebStarter.class);
+        applicationContext.refresh();
     }
 }
