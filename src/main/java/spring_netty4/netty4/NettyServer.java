@@ -61,7 +61,6 @@ public class NettyServer {
             client.pipeline().addLast(new HttpObjectAggregator(65536));
             client.pipeline().addLast(new HttpHandler());
             client.pipeline().addLast(new HttpResponseEncoder());
-            ctx.fireChannelRead(msg);
         }
 
     }
