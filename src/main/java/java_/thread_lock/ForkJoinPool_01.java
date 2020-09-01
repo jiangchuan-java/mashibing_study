@@ -1,5 +1,6 @@
 package java_.thread_lock;
 
+import java.nio.ByteBuffer;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,6 +16,7 @@ import java.util.concurrent.ForkJoinPool;
 public class ForkJoinPool_01 {
 
     public static void main(String[] args) {
-        ExecutorService forkJoinPool = Executors.newWorkStealingPool();
+        ByteBuffer byteBuffer = ByteBuffer.allocate(10);
+        byteBuffer = ByteBuffer.allocateDirect(10);
     }
 }

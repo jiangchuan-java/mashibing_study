@@ -24,7 +24,7 @@ import springboot.typeFilter.CustomIncludeTypeFilter;
 @EnableCustomProxyAnnotation
 public class SpringBootStarter {
 
-    private static void buildSpring(String[] args){
+    private static void buildSpring(String[] args) {
         /*创建这种XmlContext时， beanFactory是在refresh方法里的ObtainBeanFactory中refreshBeanFactory时进行创建的*/
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         /*创建这种AnotationContext时，在对应的构造方法里创建了beanFactoryr*/
