@@ -33,3 +33,10 @@ Spring扩展点：其核心实现类是ConfigurationClassPostProcessor
                                        ,BeanDefinitionRegistry registry);
 
    ```
+    包含以下注解之一，spring就会解析它
+   	static {
+   		candidateIndicators.add(Component.class.getName());
+   		candidateIndicators.add(ComponentScan.class.getName());
+   		candidateIndicators.add(Import.class.getName());
+   		candidateIndicators.add(ImportResource.class.getName());
+   	}
