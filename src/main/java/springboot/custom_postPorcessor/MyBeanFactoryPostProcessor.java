@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * <p>
  * @Date: 20-7-29
  */
-@Component
+//@Component
 public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {

@@ -1,8 +1,8 @@
-package springboot.entry;
+package springboot.custom_autoProxy_annotation;
 
 import org.springframework.stereotype.Component;
-import springboot.autoProxy_annotation.AutoProxy;
-import springboot.autoProxy_annotation.MyMethodInterceptor;
+import springboot.custom_autoProxy_annotation.AutoProxy;
+import springboot.custom_autoProxy_annotation.MyMethodInterceptor;
 
 /**
  * @Des:

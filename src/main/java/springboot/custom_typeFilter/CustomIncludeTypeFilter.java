@@ -1,4 +1,4 @@
-package springboot.typeFilter;
+package springboot.custom_typeFilter;
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.type.AnnotationMetadata;
@@ -15,7 +15,7 @@ import java.io.IOException;
  * <p>
  * @Date: 20-8-19
  */
-public class CustomExcludeTypeFilter implements TypeFilter {
+public class CustomIncludeTypeFilter implements TypeFilter {
 
     @Override
     public boolean match(MetadataReader metadataReader, MetadataReaderFactory metadataReaderFactory) throws IOException {
@@ -24,7 +24,7 @@ public class CustomExcludeTypeFilter implements TypeFilter {
         Resource resource = metadataReader.getResource();
 
         String className = classMetadata.getClassName();
-        System.out.println("excludeFilter: "+className);
-        return false;
+        System.out.println("includeFilter: "+className);
+        return true;
     }
 }

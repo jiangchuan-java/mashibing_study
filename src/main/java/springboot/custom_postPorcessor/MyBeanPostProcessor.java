@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * <p>
  * @Date: 20-7-29
  */
-@Component
+//@Component
 public class MyBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {

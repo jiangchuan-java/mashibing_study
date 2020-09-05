@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * <p>
  * @Date: 20-7-30
  */
-@Component
+//@Component
 public class MyMergedBeanDefinitionPostProcessor implements MergedBeanDefinitionPostProcessor {
 
     @Override

@@ -1,4 +1,4 @@
-package springboot.autoProxy_annotation;
+package springboot.custom_autoProxy_annotation;
 
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;

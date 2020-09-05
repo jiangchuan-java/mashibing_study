@@ -2,10 +2,9 @@ package springboot.custom_factoryBean;
 
 
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import springboot.entry.Student;
+import org.springframework.stereotype.Component;
 
-//@Component("student")
+@Component("student")
 public class StudentFactoryBean implements FactoryBean<Student> {
     @Override
     public Student getObject() throws Exception {

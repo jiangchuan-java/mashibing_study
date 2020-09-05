@@ -33,3 +33,14 @@ Spring扩展点：其核心实现类是ConfigurationClassPostProcessor
                                        ,BeanDefinitionRegistry registry);
 
    ```
+
+   ```
+   	private static final Set<String> candidateIndicators = new HashSet<String>(4); //传给spring当做source的类是否可被解析，要看是否含有下面的注解之一
+
+   	static {
+   		candidateIndicators.add(Component.class.getName());
+   		candidateIndicators.add(ComponentScan.class.getName());
+   		candidateIndicators.add(Import.class.getName());
+   		candidateIndicators.add(ImportResource.class.getName());
+   	}
+   	```

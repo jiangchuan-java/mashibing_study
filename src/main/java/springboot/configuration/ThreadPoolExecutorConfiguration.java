@@ -1,10 +1,10 @@
-package springboot;
+package springboot.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import springboot.typeFilter.CustomExcludeTypeFilter;
-import springboot.typeFilter.CustomIncludeTypeFilter;
+import springboot.custom_typeFilter.CustomExcludeTypeFilter;
+import springboot.custom_typeFilter.CustomIncludeTypeFilter;
 
 import java.util.concurrent.*;
 
