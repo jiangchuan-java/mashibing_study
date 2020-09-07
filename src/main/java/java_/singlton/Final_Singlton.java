@@ -14,10 +14,11 @@ public class Final_Singlton {
         flag = 1;
         /**
          * final 关键字能保证，在对象的引用被其他人看到时，
-         * final属性一定被初始化，进而防止了创建对象的重排序
+         * final属性一定被初始化，进而防止了创建对象的重排序，
+         *
          */
     }
-    private static Final_Singlton instance;
+    private static Final_Singlton instance; //但有个问题，线程的可见性，没有volatile会导致线程看不到创建好的对象
 
     public static Final_Singlton getInstance(){
         if(instance == null){
