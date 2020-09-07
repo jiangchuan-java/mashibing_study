@@ -18,7 +18,7 @@ public class Final_Singlton {
          *
          */
     }
-    private static Final_Singlton instance; //但有个问题，线程的可见性，没有volatile会导致线程看不到创建好的对象
+    private static Final_Singlton instance;
 
     public static Final_Singlton getInstance(){
         if(instance == null){
