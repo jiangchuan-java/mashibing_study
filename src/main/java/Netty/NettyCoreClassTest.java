@@ -1,6 +1,10 @@
 package Netty;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBufAllocator;
+import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.buffer.Unpooled;
+import io.netty.buffer.UnpooledByteBufAllocator;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
@@ -43,5 +47,16 @@ public class NettyCoreClassTest {
                     }
                 })
                 .bind(new InetSocketAddress("127.0.0.1",9090));
+    }
+
+    @Test
+    public void ByteBufPool(){
+        ByteBufAllocator allocator = UnpooledByteBufAllocator.DEFAULT;
+        allocator.heapBuffer();
+        allocator.directBuffer();
+
+        ByteBufAllocator pollAllocator = PooledByteBufAllocator.DEFAULT;
+        pollAllocator.heapBuffer();
+        pollAllocator.directBuffer();
     }
 }
