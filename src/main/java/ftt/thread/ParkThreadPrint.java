@@ -1,7 +1,5 @@
 package ftt.thread;
 
-import java_.thread_lock.Locksupport_01;
-
 import java.util.concurrent.locks.LockSupport;
 
 /**
@@ -11,7 +9,7 @@ import java.util.concurrent.locks.LockSupport;
  * @version 1.0
  * @date 2020/9/14 21:46
  */
-public class Test extends Thread{
+public class ParkThreadPrint extends Thread{
 
     private Thread unParkThread;
     private Runnable runnable;
@@ -43,9 +41,9 @@ public class Test extends Thread{
     }
 
     public static void main(String[] args) {
-        Test t1 = new Test();
-        Test t2 = new Test();
-        Test t3 = new Test();
+        ParkThreadPrint t1 = new ParkThreadPrint();
+        ParkThreadPrint t2 = new ParkThreadPrint();
+        ParkThreadPrint t3 = new ParkThreadPrint();
 
         t1.setUnPark(t2);
         t1.setRunnable(new Runnable() {
