@@ -51,6 +51,7 @@ public class NettyCoreClassTest {
 
     @Test
     public void ByteBufPool(){
+        new Object();
         ByteBufAllocator allocator = UnpooledByteBufAllocator.DEFAULT;
         allocator.heapBuffer();
         allocator.directBuffer();
