@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  * @Des: 解析自定义的AutoProxy标签，并生成动态代理类
- * 1: 这个类本身被import注解导入，所以在ConfigurationClassPostProcessor中被加载
+ * 1: 这个类本身被import注解导入，所以在ConfigurationClassPostProcessor中被加载进beanFactory中
  * 2: 这个类是个BeanPostProcessor，所以在registerBeanPostProcessor方法中被实例化
  * 3: 这个类是BeanPostProcessor，所以在bean实例化的时候被调用，参考AOP的实现机制
  * @Author: jiangchuan

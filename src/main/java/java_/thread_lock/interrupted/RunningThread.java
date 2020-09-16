@@ -13,7 +13,7 @@ public class RunningThread extends Thread{
     @Override
     public void run(){
         while (true) {
-            if(Thread.interrupted()){
+            if(this.isInterrupted() || Thread.interrupted()){
                 System.out.println("receive interrupted");
                 break;
             } else {
