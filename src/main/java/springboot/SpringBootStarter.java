@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ImportResource;
-import springboot.custom_autoProxy_annotation.EnableCustomProxyAnnotation;
-import springboot.custom_autoProxy_annotation.Worker;
+import springboot.aop.custom_autoProxy_annotation.EnableCustomProxyAnnotation;
+import springboot.aop.custom_autoProxy_annotation.Worker;
 
 /**
  * Created by fengtingting on 2020/6/30.

@@ -1,4 +1,4 @@
-package springboot.custom_autoProxy_annotation;
+package springboot.aop.custom_autoProxy_annotation;
 
 import java.lang.annotation.*;
 

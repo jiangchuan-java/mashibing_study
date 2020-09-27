@@ -1,4 +1,4 @@
-package springboot.configuration;
+package springboot.ioc.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

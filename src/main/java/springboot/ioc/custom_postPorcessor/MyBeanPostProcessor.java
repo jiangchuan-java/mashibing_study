@@ -1,8 +1,7 @@
-package springboot.custom_postPorcessor;
+package springboot.ioc.custom_postPorcessor;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.stereotype.Component;
 
 /**
  * @Des:

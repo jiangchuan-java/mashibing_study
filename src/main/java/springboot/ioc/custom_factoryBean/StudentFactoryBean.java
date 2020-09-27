@@ -1,4 +1,4 @@
-package springboot.custom_factoryBean;
+package springboot.ioc.custom_factoryBean;
 
 
 import org.springframework.beans.factory.FactoryBean;

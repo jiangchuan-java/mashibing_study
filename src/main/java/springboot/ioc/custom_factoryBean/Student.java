@@ -1,6 +1,4 @@
-package springboot.custom_factoryBean;
-
-import org.springframework.stereotype.Component;
+package springboot.ioc.custom_factoryBean;
 
 /**
  * TODO
