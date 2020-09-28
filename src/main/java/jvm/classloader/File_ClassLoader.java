@@ -24,7 +24,7 @@ public class File_ClassLoader extends ClassLoader{
             byte[] bytes = baos.toByteArray();
             baos.close();
             fins.close();
-            return defineClass("jvm.classloader.Student", bytes, 0, bytes.length);
+            return defineClass("jvm.classloader.Dog", bytes, 0, bytes.length);
         }catch (Exception e){
 
         }
@@ -33,7 +33,7 @@ public class File_ClassLoader extends ClassLoader{
 
     public static void main(String[] args) throws Exception{
         ClassLoader diyClassLoader = new File_ClassLoader();
-        Class c = diyClassLoader.loadClass("mashibing_study.src.main.java.jvm.jvm.classloader.Student");
+        Class c = diyClassLoader.loadClass("mashibing_study.src.main.java.jvm.jvm.classloader.Dog");
         Method[] methods = c.getDeclaredMethods();
         for(Method m : methods){
             if(m.getName() == "say"){
