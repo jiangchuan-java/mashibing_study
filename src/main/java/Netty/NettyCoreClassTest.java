@@ -11,6 +11,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.ServerSocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import org.junit.Test;
 
 import java.net.InetSocketAddress;
@@ -59,5 +60,11 @@ public class NettyCoreClassTest {
         ByteBufAllocator pollAllocator = PooledByteBufAllocator.DEFAULT;
         pollAllocator.heapBuffer();
         pollAllocator.directBuffer();
+    }
+
+    @Test
+    public void ChannelTest(){
+        NioServerSocketChannel nioServerSocketChannel = new NioServerSocketChannel();
+        NioSocketChannel socketChannel = new NioSocketChannel();
     }
 }
