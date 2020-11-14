@@ -1,7 +1,9 @@
 package java_normal.singlton;
 
+import org.junit.Test;
+
 /**
- * TODO
+ * 静态内部类
  *
  * @author fengtingting
  * @version 1.0
@@ -20,3 +22,4 @@ public class InnerStatic_Singlton {
         return InstanceHoldr.instance;
     }
 }
+
