@@ -30,4 +30,12 @@ public class Final_Singlton {
         }
         return instance;
     }
+
+    /**
+     * ObjectInputStream 在最终返回前调用
+     * @return
+     */
+    public Object readResolve(){
+        return getInstance();
+    }
 }

@@ -15,7 +15,6 @@ public class Volatile_Singlton implements Serializable {
     private Volatile_Singlton(){
 
     }
-
     private static volatile Volatile_Singlton instance;
 
     public static Volatile_Singlton getInstance(){
@@ -34,9 +33,6 @@ public class Volatile_Singlton implements Serializable {
      * @return
      */
     public Object readResolve(){
-        Class c = this.getClass();
-        ClassLoader classLoader = c.getClassLoader();
         return getInstance();
     }
-
 }

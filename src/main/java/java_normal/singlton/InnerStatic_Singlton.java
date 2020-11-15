@@ -11,8 +11,8 @@ import org.junit.Test;
  */
 public class InnerStatic_Singlton {
 
-    private InnerStatic_Singlton(){}
-
+    private InnerStatic_Singlton(){
+    }
 
     private static class InstanceHoldr {
         private static InnerStatic_Singlton instance = new InnerStatic_Singlton();
@@ -20,6 +20,13 @@ public class InnerStatic_Singlton {
 
     public static InnerStatic_Singlton getInstance() {
         return InstanceHoldr.instance;
+    }
+    /**
+     * ObjectInputStream 在最终返回前调用
+     * @return
+     */
+    public Object readResolve(){
+        return getInstance();
     }
 }
 
