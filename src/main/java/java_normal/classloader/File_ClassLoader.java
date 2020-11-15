@@ -1,4 +1,4 @@
-package jvm.classloader;
+package java_normal.classloader;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -10,6 +10,12 @@ import java.lang.reflect.Method;
  * Created by fengtingting on 2020/7/12.
  */
 public class File_ClassLoader extends ClassLoader{
+
+    @Override
+    protected Class<?> loadClass(String name, boolean resolve)
+            throws ClassNotFoundException {
+        return null;
+    }
 
     @Override
     protected Class<?> findClass(String allPathClassName) throws ClassNotFoundException {

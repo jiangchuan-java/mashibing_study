@@ -1,4 +1,4 @@
-package jvm.classloader;
+package java_normal.classloader;
 
 /**
  * Created by fengtingting on 2020/7/12.
