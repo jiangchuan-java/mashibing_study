@@ -17,6 +17,7 @@ public class SyncTest {
                 public void run() {
                     while (true) {
                         //多线程竞争下：
+                        //futuex(共享变量地址，操作，值，值)
                         //futex(0x7fd26013ea54, FUTEX_WAKE_OP_PRIVATE, 1, 1, 0x7fd26013ea50, {FUTEX_OP_SET, 0, FUTEX_OP_CMP_GT, 1}) = 1
                         //write(1, "92", 2)
                         synchronized (String.class) {
