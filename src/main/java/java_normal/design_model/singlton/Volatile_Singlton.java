@@ -1,6 +1,4 @@
-package java_normal.singlton;
-
-import org.junit.Test;
+package java_normal.design_model.singlton;
 
 import java.io.Serializable;
 

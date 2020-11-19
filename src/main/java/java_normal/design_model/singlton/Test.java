@@ -1,4 +1,4 @@
-package java_normal.singlton;
+package java_normal.design_model.singlton;
 
 import java.io.*;
 
