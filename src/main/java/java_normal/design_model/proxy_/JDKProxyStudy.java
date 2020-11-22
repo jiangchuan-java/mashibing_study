@@ -18,12 +18,17 @@ public class JDKProxyStudy {
         System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
     }
     public static interface MoveAble {
-        void move();
+        void move(String carName);
+        void stop();
     }
     public static class MyCar implements MoveAble {
         @Override
-        public void move() {
-            System.out.println("my car move");
+        public void move(String carName) {
+            System.out.println(carName + " my car move");
+        }
+        @Override
+        public void stop() {
+            System.out.println("my car stop");
         }
     }
     public static class ProxyHandler implements InvocationHandler {
@@ -43,6 +48,6 @@ public class JDKProxyStudy {
                         JDKProxyStudy.class.getClassLoader(),
                         new Class[]{MoveAble.class},
                         new ProxyHandler(mycar));
-        proxyMoveAble.move();
+        proxyMoveAble.move("audi");
     }
 }
