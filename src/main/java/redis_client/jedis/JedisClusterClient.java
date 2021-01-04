@@ -4,8 +4,6 @@ import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisNode;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import redis.clients.jedis.HostAndPort;
-import redis.clients.jedis.JedisCluster;
 
 /**
  * TODO
@@ -17,11 +15,9 @@ import redis.clients.jedis.JedisCluster;
 public class JedisClusterClient {
 
     public static void main(String[] args) {
-        /*Jedis*/
-        JedisCluster jedisCluster = new JedisCluster(new HostAndPort("127.0.0.1",6379));
 
 
-        /*spring jedis*/
+ /*       *//*spring jedis*//*
         RedisClusterConfiguration clusterConfiguration = new RedisClusterConfiguration();
         clusterConfiguration.addClusterNode(new RedisNode("127.0.0.1", 6379));
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(clusterConfiguration);
@@ -29,6 +25,6 @@ public class JedisClusterClient {
         RedisTemplate<String, String> redisTemplate = new RedisTemplate();
         redisTemplate.setConnectionFactory(jedisConnectionFactory);
 
-        redisTemplate.opsForValue().set("key","value");
+        redisTemplate.opsForValue().set("key","value");*/
     }
 }
