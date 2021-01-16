@@ -4,6 +4,9 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.util.concurrent.FastThreadLocal;
 import org.junit.Test;
+import sun.nio.ch.DirectBuffer;
+
+import java.nio.ByteBuffer;
 
 /**
  * TODO
@@ -19,7 +22,12 @@ public class NativeTransportTest {
         new FastThreadLocal<>().get();
         new ThreadLocal<>().get();
         PooledByteBufAllocator pooledByteBufAllocator = new PooledByteBufAllocator();
-        ByteBuf byteBuf = pooledByteBufAllocator.directBuffer(1024); //对象池 + 内存池
-        System.out.println(byteBuf);
+        ByteBuf byteBuf = pooledByteBufAllocator.directBuffer(957); //对象池 + 内存池
+        ByteBuf byteBuf2 = pooledByteBufAllocator.directBuffer(600); //对象池 + 内存池
+        ByteBuf byteBuf3 = pooledByteBufAllocator.directBuffer(795); //对象池 + 内存池
+
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(990);
+        byteBuffer.get(new byte[1024]);
+
     }
 }
