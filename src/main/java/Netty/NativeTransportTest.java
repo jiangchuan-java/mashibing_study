@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.util.concurrent.FastThreadLocal;
 import org.junit.Test;
-import sun.nio.ch.DirectBuffer;
 
 import java.nio.ByteBuffer;
 
@@ -29,5 +28,6 @@ public class NativeTransportTest {
         ByteBuffer byteBuffer = ByteBuffer.allocateDirect(990);
         byteBuffer.get(new byte[1024]);
 
+        System.out.println(byteBuf);
     }
 }
